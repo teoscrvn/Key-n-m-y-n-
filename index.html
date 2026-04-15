@@ -1,215 +1,536 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>✨ KEY GLOW · Neon Vault ✨</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  
-  <style>
-    /* Giữ nguyên toàn bộ CSS của ông */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { min-height: 100vh; background: radial-gradient(circle at 20% 30%, #0b0e1e, #010101); font-family: 'Inter', sans-serif; color: #e0f2fe; padding: 1.5rem; display: flex; align-items: center; justify-content: center; position: relative; }
-    .glow-text { text-shadow: 0 0 12px #00a6ff, 0 0 25px #0050b3; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
-    .neon-card { background: rgba(5, 10, 20, 0.75); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(0, 180, 255, 0.35); box-shadow: 0 0 30px rgba(0, 160, 255, 0.2), inset 0 0 10px rgba(0, 200, 255, 0.1); border-radius: 32px; padding: 2rem; transition: all 0.2s; }
-    .neon-input { background: #0a111f; border: 1.5px solid #1e3a5f; color: #b3e4ff; border-radius: 60px; padding: 0.9rem 1.5rem; font-size: 1.1rem; outline: none; transition: 0.2s; box-shadow: inset 0 0 8px #00000066, 0 0 5px #0066ff40; }
-    .neon-input:focus { border-color: #00b4ff; box-shadow: 0 0 20px #0077ff, inset 0 0 5px #001d3d; }
-    .neon-btn { background: transparent; border: 2px solid #0af; color: #0af; font-weight: 700; padding: 0.8rem 2rem; border-radius: 60px; font-family: 'Orbitron', sans-serif; letter-spacing: 1.5px; backdrop-filter: blur(8px); box-shadow: 0 0 15px #00a6ff, inset 0 0 5px #00aaff; transition: 0.2s; cursor: pointer; text-transform: uppercase; }
-    .neon-btn:hover { background: #0af; color: #010101; box-shadow: 0 0 30px #3ab4ff, 0 0 10px #ffffff; border-color: #ffffff; }
-    .key-display-box { background: #03070e; border: 2px solid #ff3b3b; box-shadow: 0 0 30px #ff0000aa, inset 0 0 15px #4a0000; border-radius: 28px; padding: 1.8rem; text-align: center; }
-    .timer-glow { color: #ffb86b; text-shadow: 0 0 8px #ff7b00; }
-    .key-item { background: #0a1424cc; border-left: 6px solid #0af; border-radius: 20px; padding: 1rem 1.5rem; margin: 0.8rem 0; backdrop-filter: blur(5px); box-shadow: 0 0 12px #002bff40; }
-    .music-toggle { position: fixed; bottom: 20px; right: 20px; background: #101b2bdd; border: 1px solid cyan; border-radius: 60px; padding: 10px 18px; color: #a0e7ff; backdrop-filter: blur(8px); z-index: 999; cursor: pointer; font-weight: bold; }
-    .container { max-width: 1000px; width: 100%; margin: 0 auto; }
-    h1, h2 { font-family: 'Orbitron', sans-serif; }
-    .expired-badge { color: #ff7b7b; border: 1px solid red; padding: 2px 12px; border-radius: 40px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>✨ NEON VAULT V2 · PREMIUM KEY ✨</title>
     
-    /* CSS cho Captcha */
-    #captcha-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px 0;
-    }
-  </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    <style>
+        /* ============================================================
+           HỆ THỐNG CSS CUSTOM - CHI TIẾT ĐỂ TĂNG TRẢI NGHIỆM & ĐỘ DÀI
+           ============================================================
+        */
+        :root {
+            --neon-blue: #00d2ff;
+            --neon-pink: #ff007f;
+            --neon-purple: #9d00ff;
+            --bg-dark: #050505;
+            --glass: rgba(10, 15, 30, 0.8);
+            --border-glow: rgba(0, 210, 255, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0f2fe;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        /* Hiệu ứng Matrix/Particles chạy nền */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* --- MÀN HÌNH CHÀO (FIX LỖI NHẠC) --- */
+        #welcome-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle, #0a1128 0%, #000 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .enter-btn {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 20px 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--border-glow);
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .enter-btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 50px var(--neon-blue);
+            transform: scale(1.1);
+        }
+
+        /* --- CONTAINER CHÍNH --- */
+        .neon-container {
+            width: 95%;
+            max-width: 950px;
+            z-index: 10;
+            animation: containerAppear 1s ease-out;
+        }
+
+        @keyframes containerAppear {
+            from { opacity: 0; transform: translateY(30px) rotateX(-10deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            border-radius: 40px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 160, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(transparent, var(--neon-blue), transparent 30%);
+            animation: rotateGlow 6s linear infinite;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        @keyframes rotateGlow {
+            100% { transform: rotate(360deg); }
+        }
+
+        .glow-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 3.5rem;
+            text-align: center;
+            background: linear-gradient(to right, #00d2ff, #9d00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.5));
+            margin-bottom: 1rem;
+        }
+
+        /* --- INPUT & BUTTONS --- */
+        .input-group {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .cyber-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #1a2a44;
+            border-radius: 15px;
+            padding: 18px 25px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: 'Fira Code', monospace;
+            transition: 0.4s;
+        }
+
+        .cyber-input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
+            outline: none;
+        }
+
+        .btn-flex {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .neon-btn {
+            padding: 15px 35px;
+            border-radius: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 1px;
+        }
+
+        .btn-blue {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        .btn-blue:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .btn-red {
+            border: 2px solid #ff4444;
+            color: #ff4444;
+            background: transparent;
+        }
+
+        .btn-red:hover {
+            background: #ff4444;
+            color: #fff;
+            box-shadow: 0 0 30px #ff4444;
+        }
+
+        /* --- KEY LIST --- */
+        .history-section { margin-top: 50px; }
+        .history-title { font-family: 'Orbitron', sans-serif; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+        .key-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .key-card:hover {
+            background: rgba(0, 210, 255, 0.05);
+            transform: translateX(10px);
+            border-color: var(--border-glow);
+        }
+
+        /* --- VIEWER DISPLAY --- */
+        .key-display-area {
+            text-align: center;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 30px;
+            border: 2px dashed var(--neon-blue);
+        }
+
+        #displayKey {
+            font-size: 2.5rem;
+            display: block;
+            margin: 20px 0;
+            color: #fff;
+            text-shadow: 0 0 20px var(--neon-blue);
+            word-break: break-all;
+        }
+
+        /* --- MUSIC TOGGLE --- */
+        .music-widget {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--neon-blue);
+        }
+
+        .music-bar {
+            width: 3px;
+            height: 20px;
+            background: var(--neon-blue);
+            animation: musicScale 0.5s ease-in-out infinite alternate;
+        }
+        @keyframes musicScale { from { height: 5px; } to { height: 25px; } }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .glow-title { font-size: 2.2rem; }
+            .glass-card { padding: 1.5rem; }
+            .neon-btn { width: 100%; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2023/09/07/audio_5b9b9b9b9b.mp3" type="audio/mpeg">
-</audio>
-<div class="music-toggle" id="musicToggle">
-  <i class="fas fa-music"></i> <span id="musicText">Bật nhạc</span>
+<canvas id="bg-canvas"></canvas>
+
+<div id="welcome-overlay">
+    <h1 class="glow-title" style="font-size: 2rem;">HỆ THỐNG KEY TỰ HỦY</h1>
+    <p style="margin-bottom: 30px; opacity: 0.6;">Dùng cho mục đích cá nhân & bảo mật</p>
+    <button class="enter-btn" id="startSystem">Truy Cập Hệ Thống</button>
 </div>
 
-<div class="container">
-  <div id="creatorSection">
-    <div class="neon-card">
-      <h1 class="glow-text" style="font-size: 2.8rem; margin-bottom: 0.5rem; display: flex; gap: 12px; align-items: center;">
-        <i class="fas fa-key" style="color: #0af;"></i> KEY•FORGE
-      </h1>
-      <p style="color: #aad0ff; margin-bottom: 2rem; font-size: 1.1rem;">
-        <i class="fas fa-link"></i> Tạo key bí mật có xác thực Captcha
-      </p>
+<audio id="bgMusic" loop>
+    <source src="https://raw.githubusercontent.com/teoscrvn/Key-n-m-y-n-/9bb272229e900af4e6291cf179a896e7d762933a/Tnh%20Bn%20Diu%20K%20-%20Amee%20x%20Ricky%20Star%20x%20Lng%20LD%20%20TIKI%20DROPS%20REMIX.mp3" type="audio/mpeg">
+</audio>
 
-      <div style="display: flex; flex-direction: column; gap: 18px;">
-        <div>
-          <label style="display: block; margin-bottom: 8px; font-weight: 600; letter-spacing: 1px;"><i class="fas fa-paste"></i> DÁN KEY CỦA BẠN</label>
-          <input type="text" id="keyInput" class="neon-input" style="width: 100%;" placeholder="Nhập key bí mật...">
-        </div>
-        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-          <button class="neon-btn" id="generateBtn"><i class="fas fa-bolt"></i> TẠO LINK CHIA SẺ</button>
-          <button class="neon-btn" id="clearStorageBtn" style="border-color: #ff5577; color: #ff99aa;"><i class="fas fa-trash-alt"></i> Xóa tất cả</button>
-        </div>
-      </div>
+<div class="neon-container">
+    
+    <div id="creatorSection">
+        <div class="glass-card">
+            <h1 class="glow-title">KEY FORGE</h1>
+            <p style="text-align: center; opacity: 0.7;">Tạo liên kết mã hóa tự hủy sau 24 giờ</p>
 
-      <div style="margin-top: 2.8rem;">
-        <h2 style="display: flex; align-items: center; gap: 8px; margin-bottom: 1.5rem;">
-          <i class="fas fa-history" style="color: #0af;"></i> <span class="glow-text">DANH SÁCH ĐÃ TẠO</span> 
-        </h2>
-        <div id="keysListContainer"></div>
-        <div id="emptyListMsg" style="text-align: center; padding: 30px; opacity: 0.8; font-style: italic; border: 1px dashed #2a4a7a; border-radius: 40px;">
-          ⚡ Chưa có key nào.
+            <div class="input-group">
+                <input type="text" id="keyInput" class="cyber-input" placeholder="Nhập nội dung key vào đây...">
+            </div>
+
+            <div class="btn-flex">
+                <button class="neon-btn btn-blue" id="genBtn">
+                    <i class="fas fa-plus-circle"></i> Tạo Link Key
+                </button>
+                <button class="neon-btn btn-red" id="clearBtn">
+                    <i class="fas fa-trash-alt"></i> Xóa Lịch Sử
+                </button>
+            </div>
+
+            <div class="history-section">
+                <h3 class="history-title"><i class="fas fa-history"></i> LỊCH SỬ GẦN ĐÂY</h3>
+                <div id="listContainer"></div>
+                <div id="noData" style="text-align: center; padding: 40px; opacity: 0.3;">
+                    <i class="fas fa-database" style="font-size: 3rem;"></i><br>Dữ liệu trống
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <div id="viewerSection" style="display: none;">
-    <div class="neon-card" style="max-width: 700px; margin: 0 auto;">
-      <div style="text-align: center; margin-bottom: 1rem;">
-        <i class="fas fa-shield-virus" style="font-size: 3.5rem; color: #3cc6ff; filter: drop-shadow(0 0 25px cyan);"></i>
-        <h1 class="glow-text" style="font-size: 2.5rem;">XÁC MINH</h1>
-      </div>
+    <div id="viewerSection" style="display: none;">
+        <div class="glass-card">
+            <div id="captchaBox">
+                <h2 class="glow-title" style="font-size: 2rem;">XÁC MINH NGƯỜI DÙNG</h2>
+                <p style="text-align: center; margin-bottom: 30px;">Vui lòng giải captcha để giải mã nội dung</p>
+                <center>
+                    <div class="g-recaptcha" data-sitekey="6Leu0bgsAAAAADdMaAoOd4G-MrXjTGEDewHiD7DC" data-callback="unlockKey"></div>
+                </center>
+            </div>
 
-      <div id="captchaPanel" style="text-align: center;">
-        <p style="margin-bottom: 20px;">Vui lòng xác minh bạn không phải robot để lấy Key.</p>
-        <div id="captcha-container">
-           <div class="g-recaptcha" 
-               data-sitekey="6Leu0bgsAAAAADdMaAoOd4G-MrXjTGEDewHiD7DC" 
-               data-callback="onCaptchaSuccess"></div>
+            <div id="keyBox" style="display: none;">
+                <div class="key-display-area">
+                    <span style="font-size: 0.8rem; letter-spacing: 3px; color: var(--neon-blue);">DECRYPTED SUCCESSFUL</span>
+                    <code id="displayKey">Loading...</code>
+                    <button class="neon-btn btn-blue" id="copyBtn" style="margin: 0 auto;">
+                        <i class="far fa-copy"></i> SAO CHÉP
+                    </button>
+                    <p style="margin-top: 25px; font-family: 'Fira Code'; color: #ffb86b;">
+                        Hết hạn trong: <span id="timer">--:--:--</span>
+                    </p>
+                </div>
+            </div>
+
+            <div id="expiredBox" style="display: none; text-align: center;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 5rem; color: #ff4444; margin-bottom: 20px;"></i>
+                <h2 style="color: #ff4444; font-family: 'Orbitron';">LINK ĐÃ HẾT HẠN</h2>
+                <p style="margin: 20px 0; opacity: 0.7;">Liên hệ người tạo để nhận mã mới.</p>
+                <button class="neon-btn btn-blue" onclick="location.href=location.origin+location.pathname" style="margin: 0 auto;">Về Trang Chủ</button>
+            </div>
         </div>
-      </div>
-
-      <div id="activeKeyPanel" style="display: none;">
-        <div class="key-display-box">
-          <div style="margin-bottom: 18px; font-size: 1.3rem; letter-spacing: 3px;">
-            <i class="fas fa-unlock-alt"></i> KEY CỦA BẠN
-          </div>
-          <div style="background: #000c1a; border-radius: 40px; padding: 18px; border: 1px solid #ff5555;">
-            <code id="displayKey" style="font-size: 2.2rem; font-weight: bold; word-break: break-all; color: #fff3bf; text-shadow: 0 0 12px gold;">-----</code>
-          </div>
-          <div style="margin-top: 28px;">
-            <button class="neon-btn" id="copyKeyBtn"><i class="far fa-copy"></i> COPY KEY</button>
-          </div>
-          <p style="margin-top: 24px;"><span id="countdownTimer" class="timer-glow">--:--:--</span></p>
-        </div>
-      </div>
-
-      <div id="expiredPanel" style="display: none; text-align: center; padding: 2rem;">
-        <h2 style="color: #ff9e9e;">LINK HẾT HẠN</h2>
-        <button class="neon-btn" style="margin-top: 30px;" onclick="location.href=location.origin+location.pathname">QUAY LẠI</button>
-      </div>
     </div>
-  </div>
+</div>
+
+<div class="music-widget">
+    <div style="display: flex; gap: 3px;" id="musicBars">
+        <div class="music-bar" style="animation-delay: 0.1s"></div>
+        <div class="music-bar" style="animation-delay: 0.3s"></div>
+        <div class="music-bar" style="animation-delay: 0.2s"></div>
+    </div>
+    <span style="font-size: 0.7rem; font-family: 'Orbitron';" id="musicName">Tình Bạn Diệu Kỳ Remix</span>
 </div>
 
 <script>
-  (function(){
+/**
+ * ============================================================
+ * HỆ THỐNG JAVASCRIPT - XỬ LÝ LOGIC, HIỆU ỨNG & MÃ HÓA
+ * ============================================================
+ */
+(function() {
     "use strict";
 
-    // 1. CHỐNG BYPASS TRỰC TIẾP (REFERRER)
-    function checkReferrer() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('key')) {
-            const ref = document.referrer;
-            // Nếu không có trang giới thiệu (vào trực tiếp) 
-            // Ông có thể thêm domain vào whitelist ở đây
-            if (!ref && !window.location.hostname.includes('localhost')) {
-                // alert("Vui lòng truy cập từ trang chủ!");
-                // window.location.href = "https://google.com"; 
-            }
+    // 1. Quản lý Nhạc & Welcome
+    const welcome = document.getElementById('welcome-overlay');
+    const audio = document.getElementById('bgMusic');
+    
+    document.getElementById('startSystem').onclick = function() {
+        welcome.style.opacity = '0';
+        setTimeout(() => welcome.style.display = 'none', 800);
+        audio.play().catch(e => console.log("Audio play failed"));
+    };
+
+    // 2. Vẽ Background Particles (Thêm dòng code)
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function initCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.onresize = initCanvas;
+    initCanvas();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.1;
+            this.speedX = Math.random() * 1 - 0.5;
+            this.speedY = Math.random() * 1 - 0.5;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+        }
+        draw() {
+            ctx.fillStyle = '#00d2ff';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
         }
     }
-    checkReferrer();
 
-    const STORAGE_KEY = 'neon_key_vault';
-    const creatorSection = document.getElementById('creatorSection');
-    const viewerSection = document.getElementById('viewerSection');
-    const displayKey = document.getElementById('displayKey');
+    for (let i = 0; i < 100; i++) particles.push(new Particle());
 
-    // Chạy khi giải xong Captcha
-    window.onCaptchaSuccess = function(token) {
-        document.getElementById('captchaPanel').style.display = 'none';
-        document.getElementById('activeKeyPanel').style.display = 'block';
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-    };
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+    animate();
 
-    function loadKeys() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-    function saveKeys(keys) { localStorage.setItem(STORAGE_KEY, JSON.stringify(keys)); }
+    // 3. Logic xử lý Key (Mã hóa / Giải mã)
+    const urlParams = new URLSearchParams(window.location.search);
+    const keyData = urlParams.get('key');
+    const expData = urlParams.get('exp');
 
-    function renderKeysList() {
-      const keys = loadKeys();
-      const container = document.getElementById('keysListContainer');
-      const emptyMsg = document.getElementById('emptyListMsg');
-      if (keys.length === 0) { container.innerHTML = ''; emptyMsg.style.display = 'block'; return; }
-      emptyMsg.style.display = 'none';
-      container.innerHTML = keys.map(k => {
-        const link = `${location.origin}${location.pathname}?key=${btoa(encodeURIComponent(k.key))}&exp=${k.expiresAt}`;
-        return `
-          <div class="key-item">
-            <code style="color:#0af">${k.key}</code>
-            <div style="margin-top:10px">
-              <button class="neon-btn" style="padding:5px 15px; font-size:10px" onclick="navigator.clipboard.writeText('${link}');alert('Đã copy link!')">Copy Link</button>
-              <button class="neon-btn" style="padding:5px 15px; font-size:10px; border-color:red; color:red" onclick="deleteKey('${k.id}')">Xóa</button>
-            </div>
-          </div>
-        `;
-      }).join('');
+    if (keyData && expData) {
+        document.getElementById('creatorSection').style.display = 'none';
+        document.getElementById('viewerSection').style.display = 'block';
+        
+        const now = Date.now();
+        if (now > parseInt(expData)) {
+            document.getElementById('captchaBox').style.display = 'none';
+            document.getElementById('expiredBox').style.display = 'block';
+        }
     }
 
-    window.deleteKey = function(id) {
-        let keys = loadKeys().filter(k => k.id !== id);
-        saveKeys(keys);
-        renderKeysList();
-    }
-
-    document.getElementById('generateBtn').onclick = function() {
-      const val = document.getElementById('keyInput').value.trim();
-      if(!val) return;
-      const keys = loadKeys();
-      keys.push({ id: Date.now().toString(), key: val, expiresAt: Date.now() + 86400000 });
-      saveKeys(keys);
-      document.getElementById('keyInput').value = '';
-      renderKeysList();
-    };
-
-    // Viewer Logic
-    const params = new URLSearchParams(window.location.search);
-    if (params.has('key')) {
-      creatorSection.style.display = 'none';
-      viewerSection.style.display = 'block';
-      const exp = parseInt(params.get('exp'));
-      if (Date.now() > exp) {
-        document.getElementById('captchaPanel').style.display = 'none';
-        document.getElementById('expiredPanel').style.display = 'block';
-      } else {
+    window.unlockKey = function() {
+        document.getElementById('captchaBox').style.display = 'none';
+        document.getElementById('keyBox').style.display = 'block';
+        confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
+        
         try {
-            displayKey.textContent = decodeURIComponent(atob(params.get('key')));
-        } catch(e) { displayKey.textContent = "Error Key"; }
-      }
-    }
-
-    document.getElementById('copyKeyBtn').onclick = function() {
-      navigator.clipboard.writeText(displayKey.textContent);
-      alert("Đã copy key!");
+            const decoded = decodeURIComponent(atob(keyData));
+            document.getElementById('displayKey').innerText = decoded;
+            runCountdown(parseInt(expData));
+        } catch(e) {
+            document.getElementById('displayKey').innerText = "ERROR_DECODE_FAILED";
+        }
     };
 
-    renderKeysList();
-  })();
+    function runCountdown(target) {
+        const timerNode = document.getElementById('timer');
+        const itv = setInterval(() => {
+            const rem = target - Date.now();
+            if (rem <= 0) {
+                clearInterval(itv);
+                location.reload();
+                return;
+            }
+            const h = Math.floor(rem / 3600000);
+            const m = Math.floor((rem % 3600000) / 60000);
+            const s = Math.floor((rem % 60000) / 1000);
+            timerNode.innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        }, 1000);
+    }
+
+    // 4. Creator Logic
+    const keyInput = document.getElementById('keyInput');
+    const genBtn = document.getElementById('genBtn');
+    const listCont = document.getElementById('listContainer');
+    const noData = document.getElementById('noData');
+
+    function saveAndRender() {
+        const db = JSON.parse(localStorage.getItem('my_keys') || '[]');
+        if (db.length === 0) noData.style.display = 'block';
+        else noData.style.display = 'none';
+
+        listCont.innerHTML = db.slice().reverse().map(item => `
+            <div class="key-card">
+                <div>
+                    <strong style="color:var(--neon-blue)">${item.val.substring(0,10)}...</strong>
+                    <div style="font-size:0.7rem; opacity:0.5">${new Date(item.id).toLocaleString()}</div>
+                </div>
+                <div style="display:flex; gap:10px">
+                    <button class="neon-btn btn-blue" style="padding:5px 15px; font-size:0.7rem" onclick="copy('${item.link}')">LINK</button>
+                    <button class="neon-btn btn-red" style="padding:5px 15px; font-size:0.7rem" onclick="del(${item.id})">XÓA</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    genBtn.onclick = function() {
+        const val = keyInput.value.trim();
+        if (!val) return alert("Nhập nội dung!");
+
+        const exp = Date.now() + (24 * 60 * 60 * 1000);
+        const encoded = btoa(encodeURIComponent(val));
+        const link = `${window.location.origin}${window.location.pathname}?key=${encoded}&exp=${exp}`;
+
+        const db = JSON.parse(localStorage.getItem('my_keys') || '[]');
+        db.push({ id: Date.now(), val, link });
+        localStorage.setItem('my_keys', JSON.stringify(db));
+
+        keyInput.value = "";
+        saveAndRender();
+        copy(link);
+        alert("Đã tạo & Copy link thành công!");
+    };
+
+    window.copy = (t) => { navigator.clipboard.writeText(t); };
+    window.del = (id) => {
+        let db = JSON.parse(localStorage.getItem('my_keys') || '[]');
+        db = db.filter(x => x.id !== id);
+        localStorage.setItem('my_keys', JSON.stringify(db));
+        saveAndRender();
+    };
+
+    document.getElementById('clearBtn').onclick = () => {
+        if (confirm("Xóa hết?")) { localStorage.removeItem('my_keys'); saveAndRender(); }
+    };
+
+    document.getElementById('copyBtn').onclick = () => {
+        copy(document.getElementById('displayKey').innerText);
+        alert("Copied!");
+    };
+
+    saveAndRender();
+})();
 </script>
 </body>
 </html>
