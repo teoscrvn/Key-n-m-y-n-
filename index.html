@@ -1,451 +1,424 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ PREMIUM KEY SYSTEM ✨</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>✨ KEY•FORGE · Anti-Bypass Edition ✨</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
 
-    <style>
-        /* ============================================================
-           HỆ THỐNG CSS CUSTOM - CHI TIẾT ĐỂ TĂNG TRẢI NGHIỆM & ĐỘ DÀI
-           ============================================================
-        */
-        :root {
-            --primary-color: #00d2ff;
-            --secondary-color: #9d00ff;
-            --accent-color: #00ffaa;
-            --bg-deep: #020205;
-            --card-bg: rgba(10, 15, 30, 0.85);
-            --border-glow: rgba(0, 210, 255, 0.4);
-            --transition-speed: 0.4s;
-        }
+  <style>
+    /* =========================================
+       CSS SYSTEM - GIỮ GỐC VÀ THÊM NEON ANIMATION
+       =========================================
+    */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
+    body {
+      min-height: 100vh;
+      background: #020205;
+      font-family: 'Inter', sans-serif;
+      color: #e0f2fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
 
-        body {
-            background-color: var(--bg-deep);
-            color: #e0f2fe;
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden; /* Giữ các hạt trong màn hình */
-        }
+    /* Nền hạt chạy (Thêm vào cho đẹp) */
+    #bg-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 1;
+      opacity: 0.6;
+    }
 
-        /* Canvas nền Particles */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #0a1128 0%, #000 100%);
-        }
+    .container {
+      max-width: 1000px;
+      width: 95%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
 
-        /* Khung chứa chính */
-        .container {
-            width: 95%;
-            max-width: 550px;
-            perspective: 1000px;
-            z-index: 10;
-        }
+    /* Giữ style Neon của ông */
+    .glow-text {
+      text-shadow: 0 0 12px #00a6ff, 0 0 25px #0050b3;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
+    }
 
-        /* Hiệu ứng Card Thủy tinh (Glassmorphism) */
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glow);
-            border-radius: 40px;
-            padding: 50px 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7),
-                        0 0 20px rgba(0, 210, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-            animation: cardAppear 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    .neon-card {
+      background: rgba(5, 10, 20, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 180, 255, 0.3);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+      border-radius: 35px;
+      padding: 2.5rem;
+      transition: 0.3s;
+    }
 
-        @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(50px) rotateX(-10deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0); }
-        }
+    .neon-input {
+      background: #0a111f;
+      border: 1.5px solid #1e3a5f;
+      color: #b3e4ff;
+      border-radius: 60px;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      outline: none;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
 
-        /* Header của Card */
-        .card-header {
-            margin-bottom: 35px;
-        }
+    .neon-btn {
+      background: transparent;
+      border: 2px solid #0af;
+      color: #0af;
+      font-weight: 700;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: 0.2s;
+      text-transform: uppercase;
+    }
 
-        .icon-box {
-            width: 80px;
-            height: 80px;
-            background: rgba(0, 210, 255, 0.1);
-            border: 2px solid var(--primary-color);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2rem;
-            color: var(--primary-color);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
-            animation: iconFloat 3s ease-in-out infinite;
-        }
+    .neon-btn:hover {
+      background: #0af;
+      color: #000;
+      box-shadow: 0 0 25px #0af;
+    }
 
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+    /* --- HỆ THỐNG HOLD TO UNLOCK (CHỐNG VÀO THẲNG) --- */
+    .verify-box {
+      margin: 2rem 0;
+      text-align: center;
+    }
 
-        .title {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 2.2rem;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #00d2ff, #00ffaa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.4));
-        }
+    .hold-btn {
+      width: 100%;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px dashed #0af;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron';
+      font-weight: bold;
+      color: #0af;
+    }
 
-        /* Khu vực hướng dẫn */
-        .info-text {
-            margin-top: 15px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: rgba(224, 242, 254, 0.7);
-        }
+    .progress-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, #00d2ff, #00ffaa);
+      transition: width 0.1s linear;
+      opacity: 0.5;
+    }
 
-        .highlight {
-            color: var(--accent-color);
-            font-weight: 600;
-        }
+    /* Sóng nhạc mini */
+    .music-widget {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      padding: 10px 20px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid #0af;
+      z-index: 1000;
+    }
 
-        /* Phần reCAPTCHA */
-        .captcha-container {
-            display: flex;
-            justify-content: center;
-            margin: 30px 0;
-            min-height: 78px;
-            transition: transform 0.3s ease;
-        }
+    .bar {
+      width: 3px;
+      height: 15px;
+      background: #0af;
+      animation: wave 0.8s infinite alternate;
+    }
 
-        .captcha-container:hover {
-            transform: scale(1.02);
-        }
+    @keyframes wave { from { height: 4px; } to { height: 18px; } }
 
-        /* Nút lấy Key chính */
-        .action-area {
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-        }
+    .key-item {
+      background: rgba(10, 20, 36, 0.6);
+      border-left: 5px solid #0af;
+      border-radius: 15px;
+      padding: 1.2rem;
+      margin: 1rem 0;
+    }
 
-        .action-area.visible {
-            opacity: 1;
-            transform: scale(1);
-            pointer-events: auto;
-        }
-
-        .btn-premium {
-            background: transparent;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 18px 45px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            transition: all var(--transition-speed);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-premium::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-premium:hover::before {
-            left: 100%;
-        }
-
-        .btn-premium:hover {
-            background: var(--primary-color);
-            color: #000;
-            box-shadow: 0 0 40px var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        /* Widget Nhạc ở góc màn hình */
-        .music-player {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--border-glow);
-            padding: 12px 25px;
-            border-radius: 100px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            z-index: 1000;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .music-player:hover {
-            background: rgba(0, 210, 255, 0.15);
-            border-color: var(--primary-color);
-        }
-
-        .wave-container {
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            height: 20px;
-        }
-
-        .wave-bar {
-            width: 3px;
-            background: var(--primary-color);
-            border-radius: 50px;
-            animation: waveAnim 0.8s ease-in-out infinite alternate;
-        }
-
-        @keyframes waveAnim {
-            from { height: 5px; }
-            to { height: 20px; }
-        }
-
-        .song-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            color: var(--primary-color);
-            letter-spacing: 1px;
-        }
-
-        /* Responsive cho điện thoại */
-        @media (max-width: 480px) {
-            .glass-card { padding: 35px 25px; }
-            .title { font-size: 1.6rem; }
-            .btn-premium { width: 100%; justify-content: center; }
-            .music-player { bottom: 20px; left: 20px; right: 20px; justify-content: center; }
-        }
-    </style>
+    #boot-overlay {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 10001;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
+<canvas id="bg-canvas"></canvas>
 
-    <audio id="main-audio" loop>
-        <source src="https://raw.githubusercontent.com/teoscrvn/Key-n-m-y-n-/9bb272229e900af4e6291cf179a896e7d762933a/Tnh%20Bn%20Diu%20K%20-%20Amee%20x%20Ricky%20Star%20x%20Lng%20LD%20%20TIKI%20DROPS%20REMIX.mp3" type="audio/mpeg">
-    </audio>
+<div id="boot-overlay">
+  <h1 class="glow-text" style="font-size: 2.5rem; margin-bottom: 30px;">VAULT V6</h1>
+  <button class="neon-btn" onclick="initSystem()"><i class="fas fa-play"></i> TRUY CẬP HỆ THỐNG</button>
+</div>
 
-    <div class="container">
-        <main class="glass-card">
-            
-            <div class="card-header">
-                <div class="icon-box">
-                    <i class="fas fa-shield-halved"></i>
-                </div>
-                <h1 class="title">XÁC MINH</h1>
-                <p class="info-text">
-                    Để đảm bảo an toàn, vui lòng xác nhận bạn không phải là robot. 
-                    Mã <span class="highlight">Key Premium</span> sẽ xuất hiện sau khi hoàn thành.
-                </p>
-            </div>
+<audio id="mainMusic" loop>
+  <source src="https://raw.githubusercontent.com/teoscrvn/Key-n-m-y-n-/9bb272229e900af4e6291cf179a896e7d762933a/Tnh%20Bn%20Diu%20K%20-%20Amee%20x%20Ricky%20Star%20x%20Lng%20LD%20%20TIKI%20DROPS%20REMIX.mp3" type="audio/mpeg">
+</audio>
 
-            <div class="captcha-container">
-                <div class="g-recaptcha" 
-                     data-sitekey="6Leu0bgsAAAAADdMaAoOd4G-MrXjTGEDewHiD7DC" 
-                     data-callback="onCaptchaSuccess">
-                </div>
-            </div>
+<div class="container">
+  
+  <div id="creatorSection">
+    <div class="neon-card">
+      <h1 class="glow-text" style="font-size: 2.2rem; margin-bottom: 0.5rem;">
+        <i class="fas fa-fingerprint" style="color: #0af;"></i> KEY•FORGE
+      </h1>
+      <p style="opacity: 0.6; margin-bottom: 2rem;">Bản Premium - Chống Bypass & Tự hủy 24h</p>
 
-            <div id="key-action" class="action-area">
-                <a href="https://your-link-here.com" class="btn-premium" target="_blank">
-                    <i class="fas fa-unlock-alt"></i> Bấm Để Lấy Key
-                </a>
-                <p style="margin-top: 20px; color: var(--accent-color); font-size: 0.8rem; font-family: 'Fira Code';">
-                    Verification Status: <span style="text-decoration: underline;">Success</span>
-                </p>
-            </div>
-
-        </main>
-    </div>
-
-    <div class="music-player" id="music-toggle">
-        <div class="wave-container" id="music-bars">
-            <div class="wave-bar" style="animation-delay: 0.1s"></div>
-            <div class="wave-bar" style="animation-delay: 0.3s"></div>
-            <div class="wave-bar" style="animation-delay: 0.2s"></div>
-            <div class="wave-bar" style="animation-delay: 0.5s"></div>
+      <div style="display: flex; flex-direction: column; gap: 15px;">
+        <input type="text" id="keyInput" class="neon-input" placeholder="Nhập Key bí mật tại đây...">
+        <div style="display: flex; gap: 10px;">
+          <button class="neon-btn" style="flex: 1;" id="generateBtn"><i class="fas fa-plus"></i> Tạo Link</button>
+          <button class="neon-btn" id="clearStorageBtn" style="border-color: #f55;"><i class="fas fa-trash"></i></button>
         </div>
-        <span class="song-name" id="song-status">NHẠC ĐANG TẮT</span>
+      </div>
+
+      <div style="margin-top: 3rem;">
+        <h3 class="glow-text" style="font-size: 1rem; margin-bottom: 1rem;">LỊCH SỬ ĐÃ TẠO</h3>
+        <div id="keysListContainer"></div>
+        <div id="emptyMsg" style="text-align: center; opacity: 0.4; padding: 20px;">Trống rỗng...</div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        /* ============================================================
-           HỆ THỐNG JAVASCRIPT - LOGIC XỬ LÝ & HIỆU ỨNG
-           ============================================================
-        */
+  <div id="viewerSection" style="display: none;">
+    <div class="neon-card" style="max-width: 600px; margin: 0 auto; text-align: center;">
+      <h1 class="glow-text">SECURITY CHECK</h1>
+      <p style="margin: 15px 0; opacity: 0.8;">Vui lòng giữ nút để xác thực con người</p>
 
-        // 1. Quản lý Nhạc & Âm thanh
-        const audio = document.getElementById('main-audio');
-        const musicToggle = document.getElementById('music-toggle');
-        const songStatus = document.getElementById('song-status');
-        const musicBars = document.querySelectorAll('.wave-bar');
+      <div id="verificationPanel">
+        <div class="hold-btn" id="holdBtn" 
+             onmousedown="startHold()" onmouseup="endHold()" 
+             ontouchstart="startHold()" ontouchend="endHold()">
+          <div class="progress-fill" id="pFill"></div>
+          <span style="position: relative; z-index: 2;" id="holdTxt">NHẤN GIỮ 3 GIÂY</span>
+        </div>
+      </div>
 
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play().catch(e => console.log("Cần tương tác người dùng"));
-                songStatus.innerText = "TÌNH BẠN DIỆU KỲ (REMIX)";
-                musicBars.forEach(bar => bar.style.animationPlayState = 'running');
-            } else {
-                audio.pause();
-                songStatus.innerText = "NHẠC ĐÃ TẮT";
-                musicBars.forEach(bar => bar.style.animationPlayState = 'paused');
-            }
+      <div id="resultPanel" style="display: none; animation: pop 0.5s ease;">
+        <div style="background: #000; border: 2px solid #0af; border-radius: 25px; padding: 2rem; margin: 20px 0;">
+          <p style="font-size: 0.8rem; letter-spacing: 2px; color: #0af; margin-bottom: 10px;">KEY CỦA BẠN LÀ:</p>
+          <code id="displayKey" style="font-size: 1.8rem; color: #fff; font-weight: bold; word-break: break-all;">---</code>
+          <div style="margin-top: 20px;">
+            <button class="neon-btn" id="copyBtn"><i class="far fa-copy"></i> Copy Key</button>
+          </div>
+        </div>
+        <p style="font-size: 0.8rem;">Hết hạn sau: <span id="timer" style="color: #0af; font-weight: bold;">--:--:--</span></p>
+      </div>
+
+      <div id="expiredPanel" style="display: none;">
+        <h2 style="color: #f55;">LINK HẾT HẠN!</h2>
+        <p>Vui lòng liên hệ người tạo để lấy link mới.</p>
+      </div>
+
+      <button class="neon-btn" style="margin-top: 30px; font-size: 0.7rem;" onclick="location.href=location.pathname">Quay lại trang chủ</button>
+    </div>
+  </div>
+</div>
+
+<div class="music-widget">
+  <div class="bar" style="animation-delay: 0.1s"></div>
+  <div class="bar" style="animation-delay: 0.3s"></div>
+  <div class="bar" style="animation-delay: 0.2s"></div>
+  <span style="font-size: 0.7rem; font-family: 'Fira Code';">REMIX ON</span>
+</div>
+
+<script>
+  (function(){
+    "use strict";
+
+    const STORAGE_KEY = 'neon_vault_v6';
+    const EXPIRE_H = 24;
+
+    // --- ELEMENTS ---
+    const creator = document.getElementById('creatorSection');
+    const viewer = document.getElementById('viewerSection');
+    const listCont = document.getElementById('keysListContainer');
+    const emptyMsg = document.getElementById('emptyMsg');
+    const music = document.getElementById('mainMusic');
+
+    // --- LOGIC TẠO KEY (GIỮ NGUYÊN GỐC CỦA ÔNG) ---
+    function loadKeys() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    function saveKeys(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+    function renderList() {
+      const keys = loadKeys();
+      emptyMsg.style.display = keys.length ? 'none' : 'block';
+      listCont.innerHTML = keys.sort((a,b)=>b.created - a.created).map(k => {
+        const link = `${location.origin}${location.pathname}?key=${encodeURIComponent(k.key)}&exp=${k.expiresAt}`;
+        return `
+          <div class="key-item">
+            <div style="font-size:0.9rem; font-weight:bold; margin-bottom:8px;">${k.key}</div>
+            <div style="display:flex; gap:10px;">
+              <button class="neon-btn" style="font-size:0.6rem; padding:5px 10px;" onclick="copyToClipboard('${link}')">Copy Link</button>
+              <button class="neon-btn" style="font-size:0.6rem; padding:5px 10px; border-color:#f55;" onclick="deleteKey('${k.id}')">Xóa</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.copyToClipboard = (str) => {
+      navigator.clipboard.writeText(str).then(() => alert("Đã copy link!"));
+    };
+
+    window.deleteKey = (id) => {
+      let keys = loadKeys().filter(k => k.id !== id);
+      saveKeys(keys);
+      renderList();
+    };
+
+    document.getElementById('generateBtn').onclick = () => {
+      const val = document.getElementById('keyInput').value.trim();
+      if(!val) return alert("Nhập key đã ông!");
+      let keys = loadKeys();
+      keys.push({
+        id: Date.now().toString(),
+        key: val,
+        created: Date.now(),
+        expiresAt: Date.now() + (EXPIRE_H * 60 * 60 * 1000)
+      });
+      saveKeys(keys);
+      document.getElementById('keyInput').value = '';
+      renderList();
+    };
+
+    document.getElementById('clearStorageBtn').onclick = () => {
+      if(confirm("Xóa hết thật hả ông?")) { localStorage.removeItem(STORAGE_KEY); renderList(); }
+    };
+
+    // --- CHỐNG BYPASS: LOGIC NHẤN GIỮ ---
+    let holdTimer;
+    let holdProgress = 0;
+
+    window.startHold = () => {
+      if(holdProgress >= 100) return;
+      document.getElementById('holdTxt').innerText = "ĐANG GIỮ...";
+      holdTimer = setInterval(() => {
+        holdProgress += 2;
+        document.getElementById('pFill').style.width = holdProgress + "%";
+        if(holdProgress >= 100) {
+          clearInterval(holdTimer);
+          revealKey();
         }
+      }, 60);
+    };
 
-        // Tự động bật nhạc khi click lần đầu vào bất cứ đâu
-        document.body.addEventListener('click', () => {
-            if (audio.paused) toggleMusic();
-        }, { once: true });
+    window.endHold = () => {
+      if(holdProgress < 100) {
+        clearInterval(holdTimer);
+        holdProgress = 0;
+        document.getElementById('pFill').style.width = "0%";
+        document.getElementById('holdTxt').innerText = "NHẤN GIỮ LẠI";
+      }
+    };
 
-        musicToggle.addEventListener('click', toggleMusic);
+    function revealKey() {
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+      document.getElementById('verificationPanel').style.display = 'none';
+      document.getElementById('resultPanel').style.display = 'block';
+    }
 
-        // 2. Xử lý sau khi giải xong Captcha
-        function onCaptchaSuccess(token) {
-            if (token) {
-                // Hiệu ứng pháo hoa
-                const duration = 3 * 1000;
-                const end = Date.now() + duration;
+    // --- VIEWER MODE ---
+    function initViewer() {
+      const params = new URLSearchParams(location.search);
+      const k = params.get('key');
+      const e = params.get('exp');
+      if(!k || !e) {
+        creator.style.display = 'block';
+        renderList();
+        return;
+      }
 
-                (function frame() {
-                    confetti({
-                        particleCount: 3,
-                        angle: 60,
-                        spread: 55,
-                        origin: { x: 0 },
-                        colors: ['#00d2ff', '#9d00ff']
-                    });
-                    confetti({
-                        particleCount: 3,
-                        angle: 120,
-                        spread: 55,
-                        origin: { x: 1 },
-                        colors: ['#00ffaa', '#ffffff']
-                    });
+      viewer.style.display = 'block';
+      creator.style.display = 'none';
 
-                    if (Date.now() < end) {
-                        requestAnimationFrame(frame);
-                    }
-                }());
+      if(Date.now() > parseInt(e)) {
+        document.getElementById('verificationPanel').style.display = 'none';
+        document.getElementById('expiredPanel').style.display = 'block';
+      } else {
+        document.getElementById('displayKey').innerText = k;
+        // Đếm ngược
+        setInterval(() => {
+          const rem = parseInt(e) - Date.now();
+          if(rem < 0) return location.reload();
+          const h = Math.floor(rem/3600000).toString().padStart(2,'0');
+          const m = Math.floor((rem%3600000)/60000).toString().padStart(2,'0');
+          const s = Math.floor((rem%60000)/1000).toString().padStart(2,'0');
+          document.getElementById('timer').innerText = `${h}:${m}:${s}`;
+        }, 1000);
 
-                // Hiện nút lấy Key
-                const actionArea = document.getElementById('key-action');
-                actionArea.classList.add('visible');
-                
-                // Hiệu ứng rung màn hình nhẹ khi hiện nút
-                document.querySelector('.glass-card').style.animation = 'none';
-                setTimeout(() => {
-                    document.querySelector('.glass-card').style.boxShadow = '0 0 50px var(--primary-color)';
-                }, 100);
-            }
-        }
+        document.getElementById('copyBtn').onclick = () => {
+          navigator.clipboard.writeText(k);
+          alert("Key đã copy!");
+        };
+      }
+    }
 
-        // 3. Hệ thống Hạt Nền (Particles) viết tay để tăng độ dài & đẹp
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray = [];
+    // --- HỆ THỐNG PHỤ (NHẠC & NỀN) ---
+    window.initSystem = () => {
+      document.getElementById('boot-overlay').style.display = 'none';
+      music.play().catch(()=>{});
+      initViewer();
+    };
 
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+    // Hiệu ứng hạt nền
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let pts = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.onresize = resize; resize();
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.color = 'rgba(0, 210, 255, ' + (Math.random() * 0.5) + ')';
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+    class Pt {
+      constructor() {
+        this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height;
+        this.vx = (Math.random()-0.5)*0.5; this.vy = (Math.random()-0.5)*0.5;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if(this.x<0||this.x>canvas.width) this.vx*=-1;
+        if(this.y<0||this.y>canvas.height) this.vy*=-1;
+      }
+    }
+    for(let i=0; i<80; i++) pts.push(new Pt());
+    function anim() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = "#0af";
+      pts.forEach(p => {
+        p.update();
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1, 0, Math.PI*2); ctx.fill();
+      });
+      requestAnimationFrame(anim);
+    }
+    anim();
 
-        function createParticles() {
-            const count = (canvas.width * canvas.height) / 10000;
-            for (let i = 0; i < count; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
-            requestAnimationFrame(animateParticles);
-        }
-
-        // Khởi tạo hệ thống
-        window.addEventListener('resize', () => {
-            initCanvas();
-            particlesArray = [];
-            createParticles();
-        });
-
-        initCanvas();
-        createParticles();
-        animateParticles();
-
-        console.log("Hệ thống Key Forge đã sẵn sàng!");
-    </script>
+  })();
+</script>
 </body>
 </html>
